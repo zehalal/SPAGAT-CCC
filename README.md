@@ -9,13 +9,13 @@
 ```
 BreastCancer1/
 ├── 1.Preprocessing/          # 数据预处理
-├── 3.LR_Screening/           # LR 基因对筛选
+├── 2.LR_Screening/           # LR 基因对筛选
 │   ├── 1.Data preprocessing/
-│   ├── 3.Build a gene network/
-│   └── 4.Identify sensitive genes and gene combinations/
-├── 4.LR_Scoring/             # LR 评分
-├── 5.Model_Training/         # 模型训练
-└── 6.Results/                # 结果评估
+│   ├── 2.Build a gene network/
+│   └── 3.Identify sensitive genes and gene combinations/
+├── 3.LR_Scoring/             # LR 评分
+├── 4.Model_Training/         # 模型训练
+└── 5.Results/                # 结果评估
     ├── Metric_Evaluation/    # 指标计算
     └── Threshold_Selection/  # 阈值选取
 ```
@@ -49,7 +49,7 @@ BreastCancer1/
 
 ### Step 2a — 信号平滑与插值
 
-**脚本：** `3.LR_Screening/1.Data preprocessing/preprocess.m`
+**脚本：** `2.LR_Screening/1.Data preprocessing/preprocess.m`
 
 **依赖输入：** `ligand_expr_by_cell.csv`（及受体侧同理）
 
@@ -65,7 +65,7 @@ BreastCancer1/
 
 ### Step 2b — 小波低频趋势提取
 
-**脚本：** `3.LR_Screening/1.Data preprocessing/preWAVE.m`
+**脚本：** `2.LR_Screening/1.Data preprocessing/preWAVE.m`
 
 **依赖输入：** `t_wavelet-all-ori-L100列.mat` / `t_wavelet-all-ori-R100列.mat`
 
@@ -82,7 +82,7 @@ BreastCancer1/
 
 ### Step 3a — GCN 训练与最优阈值选取
 
-**脚本：** `3.LR_Screening/3.Build a gene network/GCNtest.py`
+**脚本：** `2.LR_Screening/3.Build a gene network/GCNtest.py`
 
 **依赖输入：** `t_wavelet-all-L100列.mat`（或 R 侧），包含 `t_data`
 
@@ -108,7 +108,7 @@ BreastCancer1/
 
 ### Step 3b — 合并邻接矩阵与特征
 
-**脚本：** `3.LR_Screening/3.Build a gene network/getpre.m`
+**脚本：** `2.LR_Screening/3.Build a gene network/getpre.m`
 
 **依赖输入：**
 - `t_wavelet-all-L100列.mat`（小波特征）
@@ -125,7 +125,7 @@ BreastCancer1/
 
 ### Step 4a — 初始网络熵指数计算
 
-**脚本：** `3.LR_Screening/4.Identify sensitive genes and gene combinations/1.Initial network entropy index calculation/c_index0.m`
+**脚本：** `2.LR_Screening/4.Identify sensitive genes and gene combinations/1.Initial network entropy index calculation/c_index0.m`
 
 **依赖输入：** `prewavelet-k1-L100列.mat` / `prewavelet-k1-R100列.mat`
 
@@ -141,7 +141,7 @@ BreastCancer1/
 
 ### Step 4b — 扰动敏感性分析
 
-**脚本：** `3.LR_Screening/4.Identify sensitive genes and gene combinations/2.Disturbance handling/raodong_point.m`
+**脚本：** `2.LR_Screening/4.Identify sensitive genes and gene combinations/2.Disturbance handling/raodong_point.m`
 
 **依赖输入：**
 - `prewavelet-k1-L100列.mat`
@@ -158,7 +158,7 @@ BreastCancer1/
 
 ### Step 4c — 子网络探索，生成有效基因组合
 
-**脚本：** `3.LR_Screening/4.Identify sensitive genes and gene combinations/3.Subnetwork exploration/final_test.m`
+**脚本：** `2.LR_Screening/4.Identify sensitive genes and gene combinations/3.Subnetwork exploration/final_test.m`
 
 **依赖输入：**
 - `adduwaveletk1-100-(all)-L-merged.mat`（或 R 侧）
@@ -175,7 +175,7 @@ BreastCancer1/
 
 ### Step 4d — 生成配对候选列表
 
-**脚本：** `3.LR_Screening/4.Identify sensitive genes and gene combinations/3.Subnetwork exploration/make_combo_only.py`
+**脚本：** `2.LR_Screening/4.Identify sensitive genes and gene combinations/3.Subnetwork exploration/make_combo_only.py`
 
 **依赖输入：**
 - `new_name-L100列.mat`（筛选后配体基因）
@@ -193,7 +193,7 @@ BreastCancer1/
 
 ### Step 5a — 筛选表达矩阵
 
-**脚本：** `4.LR_Scoring/filter_expr_with_matrix筛选ligand_expr_by_cell_filtered.py`
+**脚本：** `3.LR_Scoring/filter_expr_with_matrix筛选ligand_expr_by_cell_filtered.py`
 
 **依赖输入：**
 - `combo_only 100列.csv`
@@ -213,7 +213,7 @@ BreastCancer1/
 
 ### Step 5b — GPU 加速的空间 LR 评分
 
-**脚本：** `4.LR_Scoring/run_compute_all_LR_scores_V0_gpu.py`
+**脚本：** `3.LR_Scoring/run_compute_all_LR_scores_V0_gpu.py`
 
 **依赖输入：**
 - `ligand_expr_by_cell_filtered 100列.csv`
@@ -237,7 +237,7 @@ $$\text{LRscore}_{(L \cdot S,\ R \cdot T)} = \alpha \cdot \sum_i w(d_{ij}) \cdot
 
 ## Step 6 — 模型训练
 
-**脚本：** `5.Model_Training/run_demo_2layers-LR多头.py`
+**脚本：** `4.Model_Training/run_demo_2layers-LR多头.py`
 
 **依赖输入：**
 - `ligand_expr_by_cell_filtered 100列.csv`
@@ -257,7 +257,7 @@ $$\text{LRscore}_{(L \cdot S,\ R \cdot T)} = \alpha \cdot \sum_i w(d_{ij}) \cdot
 
 ## Step 7 — 结果评估
 
-**脚本：** `6.Results/Metric_Evaluation/eval_other_methods.py`
+**脚本：** `5.Results/Metric_Evaluation/eval_other_methods.py`
 
 **依赖输入：**
 - `pred_scores.csv`（本方法输出）
@@ -283,27 +283,27 @@ Rscript BreastCancer1/1.Preprocessing/make_expr_tables.R
 
 # Step 2（MATLAB，顺序执行）
 # 在 MATLAB 中 cd 到对应目录后运行
-# 3.LR_Screening/1.Data preprocessing/preprocess.m
-# 3.LR_Screening/1.Data preprocessing/preWAVE.m
+# 2.LR_Screening/1.Data preprocessing/preprocess.m
+# 2.LR_Screening/1.Data preprocessing/preWAVE.m
 
 # Step 3（Python）
-python "BreastCancer1/3.LR_Screening/3.Build a gene network/GCNtest.py"
+python "BreastCancer1/2.LR_Screening/3.Build a gene network/GCNtest.py"
 
 # Step 3b（MATLAB）
-# 3.LR_Screening/3.Build a gene network/getpre.m
+# 2.LR_Screening/3.Build a gene network/getpre.m
 
 # Step 4（MATLAB + Python）
 # c_index0.m → raodong_point.m → final_test.m → make_combo_only.py
 
 # Step 5（Python）
-python "BreastCancer1/4.LR_Scoring/filter_expr_with_matrix筛选ligand_expr_by_cell_filtered.py"
-python "BreastCancer1/4.LR_Scoring/run_compute_all_LR_scores_V0_gpu.py"
+python "BreastCancer1/3.LR_Scoring/filter_expr_with_matrix筛选ligand_expr_by_cell_filtered.py"
+python "BreastCancer1/3.LR_Scoring/run_compute_all_LR_scores_V0_gpu.py"
 
 # Step 6（Python，需要 GPU）
-python "BreastCancer1/5.Model_Training/run_demo_2layers-LR多头.py"
+python "BreastCancer1/4.Model_Training/run_demo_2layers-LR多头.py"
 
 # Step 7（Python）
-python "BreastCancer1/6.Results/Metric_Evaluation/eval_other_methods.py"
+python "BreastCancer1/5.Results/Metric_Evaluation/eval_other_methods.py"
 ```
 
 ---

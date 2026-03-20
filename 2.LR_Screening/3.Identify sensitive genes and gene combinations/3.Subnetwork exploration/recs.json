@@ -1,0 +1,35 @@
+{
+  "Stroma": [
+    "CD9",
+    "ENO1",
+    "CD63",
+    "ITGB1"
+  ],
+  "Malignant": [
+    "MGRN1",
+    "SDC1",
+    "F11R",
+    "IL13RA1",
+    "NCSTN",
+    "NPTN",
+    "PLXND1",
+    "RAMP2",
+    "SCARB1",
+    "BAMBI",
+    "CD47",
+    "CDH1",
+    "DSG2",
+    "ERBB2",
+    "OCLN",
+    "PRLR",
+    "SDC4",
+    "ENO1",
+    "NOTCH3",
+    "PTPRA",
+    "THY1",
+    "ITGAE"
+  ],
+  "Bcell": [
+    "CD74"
+  ]
+}

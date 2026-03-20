@@ -1,0 +1,11 @@
+"","Stroma_Macrophage","Malignant_Macrophage","Bcell_Macrophage","Endothelial_Macrophage","Tcell_Macrophage"
+"Lig_bk",130,179,131,65,128
+"Rec_bk",236,236,236,236,236
+"ICG_bk",0,10,74,16,0
+"LRpair",0,0,52,46,0
+"RecTFpair",0,0,46,70,0
+"TFTGpair",0,0,37,40,0
+"Ligand",0,0,36,26,0
+"Receptor",0,0,18,19,0
+"TF",0,0,6,6,0
+"TG",0,0,18,12,0
